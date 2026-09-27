@@ -1,0 +1,90 @@
+<div class="container mt-5">
+  <div class="card shadow-4 mb-5 border-0">
+    <div class="card-header bg-primary text-white py-3">
+      <h4 class="mb-0"><i class="fas fa-car me-2"></i>Gerenciamento de Carros</h4>
+    </div>
+    <div class="card-body p-4">
+      <form (ngSubmit)="salvar()">
+        <h5 class="text-secondary mb-4">{{ carro.id ? 'Editar Carro (ID: ' + carro.id + ')' : 'Novo Cadastro' }}</h5>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label fw-bold">Modelo</label>
+            <input type="text" class="form-control form-control-lg" [(ngModel)]="carro.modelo" name="modelo" placeholder="Ex: Corolla" required />
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label fw-bold">Marca</label>
+            <input type="text" class="form-control form-control-lg" [(ngModel)]="carro.marca" name="marca" placeholder="Ex: Toyota" required />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label fw-bold">Ano</label>
+            <input type="number" class="form-control form-control-lg" [(ngModel)]="carro.ano" name="ano" placeholder="Ex: 2024" required />
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label fw-bold">Cor</label>
+            <input type="text" class="form-control form-control-lg" [(ngModel)]="carro.cor" name="cor" placeholder="Ex: Prata" required />
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end gap-2 mt-4">
+          <button type="submit" mdbBtn color="success" class="btn-lg px-4 shadow-2" rippleInit>
+            <i class="fas fa-save me-2"></i>{{ carro.id ? 'Atualizar' : 'Salvar' }}
+          </button>
+          <button type="button" mdbBtn color="light" class="btn-lg px-4 border" (click)="limparFormulario()" rippleInit>
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Tabela Estilizada -->
+  <div class="card shadow-4 border-0">
+    <div class="card-header bg-light py-3">
+      <h5 class="mb-0 text-dark fw-bold">Lista de Carros Cadastrados</h5>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th class="py-3 ps-4">ID</th>
+              <th class="py-3">Modelo</th>
+              <th class="py-3">Marca</th>
+              <th class="py-3">Ano</th>
+              <th class="py-3">Cor</th>
+              <th class="py-3 text-end pe-4">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of carros">
+              <td class="ps-4"><strong>#{{ c.id }}</strong></td>
+              <td>{{ c.modelo }}</td>
+              <td>{{ c.marca }}</td>
+              <td>{{ c.ano }}</td>
+              <td>
+                <span class="badge rounded-pill bg-light text-dark border px-3 py-2">{{ c.cor }}</span>
+              </td>
+              <td class="text-end pe-4">
+                <button mdbBtn color="info" size="sm" class="me-2 px-3 text-white" (click)="editar(c)" rippleInit>
+                  Editar
+                </button>
+                <button mdbBtn color="danger" size="sm" class="px-3" (click)="deletar(c.id)" rippleInit>
+                  Excluir
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="carros.length === 0">
+              <td colspan="6" class="text-center py-5 text-muted">Nenhum carro cadastrado no momento.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

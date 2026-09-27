@@ -62,4 +62,6 @@ export class CarroComponentComponent implements OnInit {
   limparFormulario(): void {
     this.carro = { modelo: '', marca: '', ano: 0, cor: '' };
   }
+
+  //comentario
 }

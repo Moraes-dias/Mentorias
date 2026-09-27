@@ -12,16 +12,19 @@ public class Carro {
 
     private String marca;
     private String modelo;
+    private Integer ano; // NOVO
+    private String cor;  // NOVO
 
-    // Construtor vazio obrigatório pelo JPA
     public Carro() {}
 
-    public Carro(String marca, String modelo) {
+    public Carro(String marca, String modelo, Integer ano, String cor) {
         this.marca = marca;
         this.modelo = modelo;
+        this.ano = ano;
+        this.cor = cor;
     }
 
-    // Getters e Setters (Encapsulamento)
+    // Getters e Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -30,4 +33,10 @@ public class Carro {
 
     public String getModelo() { return modelo; }
     public void setModelo(String modelo) { this.modelo = modelo; }
+
+    public Integer getAno() { return ano; }
+    public void setAno(Integer ano) { this.ano = ano; }
+
+    public String getCor() { return cor; }
+    public void setCor(String cor) { this.cor = cor; }
 }

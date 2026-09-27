@@ -24,4 +24,16 @@ public class CarroController {
     public Carro criar(@RequestBody CarroDTO dto) {
         return carroService.cadastrarCarro(dto);
     }
+
+    // NOVO: Endpoint PUT para atualizar
+    @PutMapping("/{id}")
+    public Carro atualizar(@PathVariable Long id, @RequestBody CarroDTO dto) {
+        return carroService.atualizarCarro(id, dto);
+    }
+
+    // NOVO: Endpoint DELETE para excluir
+    @DeleteMapping("/{id}")
+    public void deletar(@PathVariable Long id) {
+        carroService.deletarCarro(id);
+    }
 }

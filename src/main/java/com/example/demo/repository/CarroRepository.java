@@ -8,27 +8,38 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Repository // Diz ao Spring que esta classe faz parte da camada de persistência
+@Repository
 public class CarroRepository {
 
-    // Injeta a ferramenta oficial do JPA para gerenciar entidades e interagir com o banco
     @PersistenceContext
     private EntityManager entityManager;
 
-    // Operação de Salvar (INSERT ou UPDATE)
-    @Transactional // Obrigatório em operações que alteram o banco de dados
+    @Transactional
     public Carro salvar(Carro carro) {
         if (carro.getId() == null) {
-            entityManager.persist(carro); // Equivalente ao INSERT
+            entityManager.persist(carro); // INSERT
             return carro;
         } else {
-            return entityManager.merge(carro); // Equivalente ao UPDATE
+            return entityManager.merge(carro); // UPDATE
         }
     }
 
-    // Operação de Listar Todos (SELECT * FROM carros)
     public List<Carro> listarTodos() {
         return entityManager.createQuery("SELECT c FROM Carro c", Carro.class)
                 .getResultList();
+    }
+
+    // NOVO: Buscar por ID para edição
+    public Carro buscarPorId(Long id) {
+        return entityManager.find(Carro.class, id);
+    }
+
+    // NOVO: Deletar carro
+    @Transactional
+    public void deletar(Long id) {
+        Carro carro = entityManager.find(Carro.class, id);
+        if (carro != null) {
+            entityManager.remove(carro);
+        }
     }
 }
